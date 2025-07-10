@@ -1,61 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel SaaS Starter Kit
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive SaaS starter kit built with Laravel, featuring team-based subscriptions and payment processing.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   **Laravel Jetstream** with team support for multi-tenant SaaS applications
+-   **Laravel Cashier** integration with Paddle for payment processing
+-   **Team-based subscriptions** - payments are attached to teams rather than individual users
+-   **Built-in authentication** with Fortify
+-   **Two-factor authentication** support
+-   **API token management** for team members
+-   **Email verification** and password reset functionality
+-   **Team invitations** and member management
+-   **Modern UI** with Tailwind CSS
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Backend**: Laravel 10+
+-   **Authentication**: Laravel Fortify + Jetstream
+-   **Payments**: Laravel Cashier with Paddle
+-   **Frontend**: Blade templates with Tailwind CSS
+-   **Database**: MySQL/PostgreSQL (configurable)
 
-## Learning Laravel
+## Getting Started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   PHP 8.1+
+-   Composer
+-   Node.js & NPM
+-   Database (MySQL/PostgreSQL)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation
 
-## Laravel Sponsors
+1. **Clone the repository**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```bash
+    git clone <repository-url>
+    cd saas-starter
+    ```
 
-### Premium Partners
+2. **Install PHP dependencies**
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    ```bash
+    composer install
+    ```
+
+3. **Install Node.js dependencies**
+
+    ```bash
+    npm install
+    ```
+
+4. **Environment setup**
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+5. **Configure your database**
+   Edit `.env` file with your database credentials:
+
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+    ```
+
+6. **Run migrations**
+
+    ```bash
+    php artisan migrate
+    ```
+
+7. **Build assets**
+
+    ```bash
+    npm run build
+    ```
+
+8. **Start the development server**
+    ```bash
+    php artisan serve
+    ```
+
+## Configuration
+
+### Paddle Integration
+
+To enable payment processing, configure your Paddle credentials in `.env`:
+
+```
+PADDLE_VENDOR_ID=your_vendor_id
+PADDLE_VENDOR_AUTH_CODE=your_auth_code
+PADDLE_ENVIRONMENT=sandbox
+```
+
+### Team Subscriptions
+
+This starter kit is designed for team-based SaaS applications where:
+
+-   Users can create and manage teams
+-   Subscriptions are attached to teams, not individual users
+-   Team members can be invited and managed
+-   Payment processing is handled at the team level
+
+## Project Structure
+
+```
+app/
+├── Actions/          # Jetstream actions
+├── Models/           # Eloquent models
+│   ├── User.php
+│   ├── Team.php
+│   ├── TeamInvitation.php
+│   └── Membership.php
+├── Providers/        # Service providers
+└── View/            # View components
+
+database/
+├── migrations/       # Database migrations
+└── seeders/         # Database seeders
+
+resources/
+└── views/           # Blade templates
+    ├── dashboard.blade.php
+    ├── teams/       # Team management views
+    └── profile/     # User profile views
+```
+
+## Key Models
+
+-   **User**: Individual user accounts
+-   **Team**: Team/workspace entities that hold subscriptions
+-   **TeamInvitation**: Team invitation management
+-   **Membership**: User-team relationships with roles
+
+## Development
+
+### Running Tests
+
+```bash
+php artisan test
+```
+
+### Code Style
+
+```bash
+composer run-script phpcs
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Support
+
+For support and questions, please open an issue on GitHub or contact the maintainers.

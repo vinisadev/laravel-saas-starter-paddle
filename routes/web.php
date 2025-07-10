@@ -18,7 +18,7 @@ Route::middleware([
 });
 
 Route::get('/subscribe', function (Request $request) {
-  $checkout = $request->user()->currentTeam->checkout('')
+  $checkout = $request->user()->currentTeam->checkout('') // Place your product price ID here
     ->returnTo(route('dashboard'));
 
   return view('subscribe', ['checkout' => $checkout]);
