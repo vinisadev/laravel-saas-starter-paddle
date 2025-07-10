@@ -7,11 +7,13 @@ use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
+use Laravel\Paddle\Billable;
 
 class Team extends JetstreamTeam
 {
     /** @use HasFactory<\Database\Factories\TeamFactory> */
     use HasFactory;
+    use Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -44,5 +46,10 @@ class Team extends JetstreamTeam
         return [
             'personal_team' => 'boolean',
         ];
+    }
+
+    public function paddleEmail(): string|null
+    {
+        return $this->owner->email;
     }
 }
